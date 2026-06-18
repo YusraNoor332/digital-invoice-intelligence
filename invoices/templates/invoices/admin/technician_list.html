@@ -1,0 +1,52 @@
+{% extends 'invoices/base.html' %}
+{% load static %}
+
+{% block title %}Technician Profiles{% endblock %}
+{% block page_title %}Technician Profiles{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card fusion-card">
+            <div class="card-header bg-transparent border-0 pb-0 d-flex justify-content-between align-items-center">
+                <h3 class="card-title font-weight-bold" style="color: var(--sidebar-dark-blue);">
+                    <i class="bi bi-people mr-2" style="color: var(--haier-smart-blue);"></i> All Technicians
+                </h3>
+            </div>
+            <div class="card-body mt-3">
+                <div class="table-responsive">
+                    <table class="table table-hover table-borderless align-middle">
+                        <thead class="bg-light text-muted">
+                            <tr>
+                                <th class="rounded-left py-3">Employee ID</th>
+                                <th class="py-3">Full Name</th>
+                                <th class="py-3">Username</th>
+                                <th class="py-3">Email</th>
+                                <th class="rounded-right py-3 text-right">Phone Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for technician in technicians %}
+                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                <td class="py-3 font-weight-bold" style="color: var(--haier-smart-blue);">{{ technician.employee_id }}</td>
+                                <td class="py-3 font-weight-bold text-dark">{{ technician.user.get_full_name|default:"-" }}</td>
+                                <td class="py-3 text-muted">{{ technician.user.username }}</td>
+                                <td class="py-3 text-muted">{{ technician.user.email|default:"-" }}</td>
+                                <td class="py-3 text-right text-muted">{{ technician.phone_number|default:"-" }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    <i class="bi bi-people display-4 d-block mb-3 opacity-50"></i>
+                                    <h5>No technician profiles found.</h5>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

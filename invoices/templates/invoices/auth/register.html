@@ -1,0 +1,53 @@
+{% extends 'invoices/base_auth.html' %}
+
+{% block content %}
+<div class="register-box">
+  <div class="register-logo">
+    <a href="#"><b>Service</b>Portal</a>
+  </div>
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Register a new technician</p>
+
+      <form method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          {{ form.first_name }}
+          <div class="input-group-text"><span class="bi bi-person"></span></div>
+        </div>
+        <div class="input-group mb-3">
+          {{ form.last_name }}
+          <div class="input-group-text"><span class="bi bi-person"></span></div>
+        </div>
+        <div class="input-group mb-3">
+          {{ form.username }}
+          <div class="input-group-text"><span class="bi bi-person-badge"></span></div>
+        </div>
+        <div class="input-group mb-3">
+          {{ form.password }}
+          <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+        </div>
+        <div class="input-group mb-3">
+          {{ form.employee_id }}
+          <div class="input-group-text"><span class="bi bi-card-text"></span></div>
+        </div>
+        <div class="input-group mb-3">
+          {{ form.phone_number }}
+          <div class="input-group-text"><span class="bi bi-telephone"></span></div>
+        </div>
+        
+        <div class="row">
+          <div class="col-12">
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <p class="mb-0 mt-3 text-center">
+        <a href="{% url 'login_view' %}" class="text-center">I already have a membership</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

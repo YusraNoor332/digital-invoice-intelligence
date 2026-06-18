@@ -1,0 +1,17 @@
+# Python bytecode
+*.pyc
+__pycache__/
+
+# Local database (keeps your actual data safe and local)
+db.sqlite3
+
+# Development media/uploads
+/media/
+/static_root/
+
+# Environment configurations & OS files
+.env
+.venv/
+env/
+venv/
+.DS_Store

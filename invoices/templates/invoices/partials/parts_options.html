@@ -1,0 +1,5 @@
+{% for part in parts %}
+    <option value="{{ part.id }}">{{ part.part_name }} ({{ part.part_code }}) - Rs.{{ part.price_pkr }}</option>
+{% empty %}
+    <option value="">No associated parts found.</option>
+{% endfor %}

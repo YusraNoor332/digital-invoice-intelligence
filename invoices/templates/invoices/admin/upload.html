@@ -1,0 +1,15 @@
+{% extends 'invoices/base.html' %}
+
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 500px;">
+    <div class="card-header bg-dark text-white fw-bold">Admin Inventory Upload</div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.excel_file.label_tag }}
+            {{ form.excel_file }}
+            <button type="submit" class="btn btn-primary w-100 mt-3">Upload and Sync</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

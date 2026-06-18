@@ -1,0 +1,109 @@
+{% extends 'invoices/base.html' %}
+
+{% block content %}
+<style>
+    .form-card {
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: none;
+    }
+    .form-header {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px 12px 0 0;
+    }
+    .section-title {
+        color: #0d6efd;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        margin-top: 2rem;
+    }
+    .service-checklist {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 1rem;
+        background: #f8f9fa;
+    }
+</style>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8 col-lg-7">
+        <div class="card fusion-card mb-5">
+            <div class="form-header text-center" style="background: linear-gradient(135deg, var(--haier-smart-blue) 0%, var(--electric-cyan) 100%);">
+                <h3 class="mb-0 font-weight-bold">Create New Invoice</h3>
+                <p class="mb-0 text-white-50 small">Fill out the customer and service details</p>
+            </div>
+            
+            <div class="card-body p-4 p-md-5">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="section-title mt-0" style="color: var(--haier-smart-blue);">Customer Information</div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label font-weight-bold text-muted small">Full Name</label>
+                            {{ form.customer_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-weight-bold text-muted small">Phone Number</label>
+                            {{ form.customer_phone }}
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label class="form-label font-weight-bold text-muted small">Complete Address</label>
+                            {{ form.customer_address }}
+                        </div>
+                    </div>
+                    
+                    <div class="section-title" style="color: var(--haier-smart-blue);">Appliance & Spare Parts</div>
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold text-muted small">Select Appliance</label>
+                        {{ form.appliance }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold text-muted small">Required Spare Parts (Auto-loads based on model)</label>
+                        {{ form.parts }}
+                        <div class="form-text">Hold Ctrl (Windows) or Command (Mac) to select multiple parts.</div>
+                    </div>
+
+                    <div class="section-title" style="color: var(--haier-smart-blue);">Services Performed</div>
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold text-muted small mb-2">Check all services rendered</label>
+                        <div class="service-checklist">
+                            {% for checkbox in form.services %}
+                                <div class="form-check mb-2">
+                                    {{ checkbox.tag }}
+                                    <label class="form-check-label ml-2" for="{{ checkbox.id_for_label }}">
+                                        {{ checkbox.choice_label }}
+                                    </label>
+                                </div>
+                            {% empty %}
+                                <div class="text-muted small">No services available. Please ask Admin to configure Service Types.</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="section-title" style="color: var(--haier-smart-blue);">Financials</div>
+                    <div class="mb-4">
+                        <label class="form-label font-weight-bold text-muted small">Discount (PKR)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-right-0">Rs.</span>
+                            {{ form.discount_pkr }}
+                        </div>
+                        <div class="form-text">Enter 0 if no discount is applied. Worker fees are auto-calculated from selected services.</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 py-3 rounded-lg font-weight-bold shadow-sm mt-3" style="background-color: var(--haier-smart-blue); border: none;">Draft Invoice & Generate OTP</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

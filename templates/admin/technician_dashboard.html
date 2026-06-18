@@ -1,0 +1,62 @@
+{% extends 'invoices/base.html' %}
+
+{% block title %}Technician Dashboard - Service Portal{% endblock %}
+
+{% block page_title %}Technician Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <div class="small-box text-bg-primary">
+            <div class="inner">
+                <h3>{{ total_invoices }}</h3>
+                <p>Total Invoices Created</p>
+            </div>
+            <div class="small-box-icon">
+                <i class="bi bi-receipt"></i>
+            </div>
+            <a href="{% url 'technician_invoice_create' %}" class="small-box-footer">Create New <i class="bi bi-arrow-right-circle"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card fusion-card mb-4">
+            <div class="card-header border-0 bg-transparent">
+                <h3 class="card-title font-weight-bold" style="color: var(--haier-smart-blue);">Recent Invoices</h3>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Customer Name</th>
+                            <th>Date</th>
+                            <th>Total Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invoice in recent_invoices %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ invoice.customer_name }}</td>
+                            <td>{{ invoice.created_at|date:"M d, Y" }}</td>
+                            <td>Rs. {{ invoice.grand_total }}</td>
+                            <td>
+                                <a href="{% url 'invoice_detail_view' invoice.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">No invoices created yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

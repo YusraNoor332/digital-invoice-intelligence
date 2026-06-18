@@ -1,0 +1,204 @@
+/* NiceAdmin Replica CSS */
+
+:root {
+  --primary-color: #4154f1;
+  --bg-color: #f6f9ff;
+  --text-color: #444444;
+  --header-bg: #fff;
+  --sidebar-bg: #fff;
+  --border-color: #ebeef4;
+}
+
+/* Dark Mode Variables */
+[data-bs-theme="dark"] {
+  --bg-color: #12141d;
+  --text-color: #a0a5b1;
+  --header-bg: #1e2235;
+  --sidebar-bg: #1e2235;
+  --border-color: #2c3144;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s;
+}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+.header {
+  transition: all 0.5s;
+  z-index: 997;
+  height: 60px;
+  box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+  background-color: var(--header-bg);
+  padding-left: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+[data-bs-theme="dark"] .header {
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.header .toggle-sidebar-btn {
+  font-size: 32px;
+  padding-left: 10px;
+  cursor: pointer;
+  color: #012970;
+}
+[data-bs-theme="dark"] .header .toggle-sidebar-btn {
+  color: #fff;
+}
+
+.header .logo {
+  line-height: 1;
+}
+
+.header .logo img {
+  max-height: 26px;
+  margin-right: 6px;
+}
+
+.header .logo span {
+  font-size: 26px;
+  font-weight: 700;
+  color: #012970;
+  font-family: "Nunito", sans-serif;
+}
+[data-bs-theme="dark"] .header .logo span {
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Sidebar
+--------------------------------------------------------------*/
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 996;
+  transition: all 0.3s;
+  padding: 20px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  background-color: var(--sidebar-bg);
+  box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+  border-right: 1px solid var(--border-color);
+}
+[data-bs-theme="dark"] .sidebar {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 1199px) {
+  .sidebar {
+    left: -300px;
+  }
+}
+
+.sidebar-nav {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidebar-nav .nav-item {
+  margin-bottom: 5px;
+}
+
+.sidebar-nav .nav-heading {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #899bbd;
+  font-weight: 600;
+  margin: 10px 0 5px 15px;
+}
+
+.sidebar-nav .nav-link {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-color);
+  transition: 0.3;
+  background: #f6f9ff;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+[data-bs-theme="dark"] .sidebar-nav .nav-link {
+  background: #2b3041;
+  color: #8da2fb;
+}
+
+.sidebar-nav .nav-link i {
+  font-size: 16px;
+  margin-right: 10px;
+  color: var(--primary-color);
+}
+[data-bs-theme="dark"] .sidebar-nav .nav-link i {
+  color: #8da2fb;
+}
+
+.sidebar-nav .nav-link.collapsed {
+  color: var(--text-color);
+  background: var(--sidebar-bg);
+}
+
+.sidebar-nav .nav-link.collapsed i {
+  color: #899bbd;
+}
+
+.sidebar-nav .nav-link:hover {
+  color: var(--primary-color);
+  background: #f6f9ff;
+}
+[data-bs-theme="dark"] .sidebar-nav .nav-link:hover {
+  background: #2b3041;
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Main
+--------------------------------------------------------------*/
+#main {
+  margin-top: 60px;
+  padding: 20px 30px;
+  transition: all 0.3s;
+}
+
+@media (min-width: 1200px) {
+  #main {
+    margin-left: 300px;
+  }
+}
+
+.toggle-sidebar .sidebar {
+  left: -300px;
+}
+
+.toggle-sidebar #main {
+  margin-left: 0;
+}
+
+@media (max-width: 1199px) {
+  .toggle-sidebar .sidebar {
+    left: 0;
+  }
+}
+
+/* Dark mode toggle button */
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+}

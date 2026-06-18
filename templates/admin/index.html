@@ -1,0 +1,12 @@
+{% extends "admin/index.html" %}
+
+{% block sidebar %}
+    {{ block.super }}
+    <div class="app-custom-links module" style="margin-top: 20px;">
+        <h2>Custom Upload Tools</h2>
+        <ul>
+            <li><a href="{% url 'admin_upload_inventory_excel' %}">Upload Inventory (Excel)</a></li>
+            <li><a href="{% url 'admin_upload_services_excel' %}">Upload Services (Excel)</a></li>
+        </ul>
+    </div>
+{% endblock %}

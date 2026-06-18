@@ -1,0 +1,67 @@
+{% extends 'invoices/base.html' %}
+{% load static %}
+
+{% block title %}Search Results for "{{ query }}"{% endblock %}
+{% block page_title %}Search Results for "{{ query }}"{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h4 class="mb-4">Found results for <strong class="text-primary">"{{ query }}"</strong></h4>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Invoices Results -->
+    <div class="col-md-6">
+        <div class="card fusion-card">
+            <div class="card-header bg-transparent border-0">
+                <h3 class="card-title font-weight-bold" style="color: var(--haier-smart-blue);">
+                    <i class="bi bi-receipt mr-2"></i> Invoices
+                </h3>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% for invoice in invoice_results %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0 font-weight-bold">{{ invoice.customer_name }}</h6>
+                            <small class="text-muted">{{ invoice.customer_phone }} | ID: {{ invoice.id|stringformat:"s"|slice:":8" }}...</small>
+                        </div>
+                        <a href="{% url 'invoice_detail_view' invoice.id %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">View</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-center text-muted py-4">No invoices matched your search.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Results -->
+    <div class="col-md-6">
+        <div class="card fusion-card">
+            <div class="card-header bg-transparent border-0">
+                <h3 class="card-title font-weight-bold" style="color: var(--electric-cyan);">
+                    <i class="bi bi-box-seam mr-2"></i> Product Inventories
+                </h3>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% for product in product_results %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0 font-weight-bold">{{ product.part_name }}</h6>
+                            <small class="text-muted">Model: {{ product.model_number }} | Category: {{ product.category }}</small>
+                        </div>
+                        <span class="badge bg-light text-dark border">Rs. {{ product.price_pkr }}</span>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-center text-muted py-4">No products matched your search.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

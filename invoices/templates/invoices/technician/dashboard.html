@@ -1,0 +1,86 @@
+{% extends 'invoices/base.html' %}
+{% load static %}
+
+{% block title %}Technician Dashboard{% endblock %}
+{% block page_title %}Technician Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Total Invoices Card -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card fusion-card bg-gradient-blue text-white h-100">
+            <div class="card-body position-relative overflow-hidden p-4">
+                <h5 class="text-uppercase mb-1 opacity-75 font-weight-bold" style="letter-spacing: 1px; font-size: 0.85rem;">Total Invoices Created</h5>
+                <h2 class="display-4 font-weight-bold mb-0">{{ total_invoices }}</h2>
+                <i class="bi bi-receipt position-absolute opacity-25" style="font-size: 6rem; right: -15px; bottom: -20px;"></i>
+            </div>
+            <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-4">
+                <a href="{% url 'technician_invoice_create' %}" class="text-white font-weight-bold text-decoration-none">
+                    Create New Invoice <i class="bi bi-arrow-right-circle ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card fusion-card">
+            <div class="card-header bg-transparent border-0 pb-0">
+                <h3 class="card-title font-weight-bold" style="color: var(--sidebar-dark-blue);">
+                    <i class="bi bi-clock-history mr-2" style="color: var(--haier-smart-blue);"></i> Recent Invoices
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-borderless align-middle">
+                        <thead class="bg-light text-muted">
+                            <tr>
+                                <th class="rounded-left py-3">Invoice ID</th>
+                                <th class="py-3">Customer</th>
+                                <th class="py-3">Date</th>
+                                <th class="py-3">Amount (PKR)</th>
+                                <th class="py-3">Status</th>
+                                <th class="rounded-right py-3 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invoice in recent_invoices %}
+                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                <td class="py-3 font-weight-bold" style="color: var(--haier-smart-blue);">{{ invoice.id|stringformat:"s"|slice:":8" }}...</td>
+                                <td class="py-3">
+                                    <div class="font-weight-bold text-dark">{{ invoice.customer_name }}</div>
+                                    <small class="text-muted">{{ invoice.customer_phone }}</small>
+                                </td>
+                                <td class="py-3 text-muted">{{ invoice.created_at|date:"M d, Y" }}</td>
+                                <td class="py-3 font-weight-bold">Rs. {{ invoice.grand_total }}</td>
+                                <td class="py-3">
+                                    {% if invoice.otp_verified %}
+                                    <span class="badge badge-paid px-3 py-2 rounded-pill">Verified</span>
+                                    {% else %}
+                                    <span class="badge badge-pending px-3 py-2 rounded-pill">Pending OTP</span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-3 text-right">
+                                    <a href="{% url 'invoice_detail_view' invoice.id %}" class="btn btn-sm btn-outline-primary rounded-pill px-3 font-weight-bold">
+                                        View Details
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center py-5 text-muted">
+                                    <i class="bi bi-inboxes display-4 d-block mb-3 opacity-50"></i>
+                                    <h5>No invoices created yet.</h5>
+                                    <p>Click "Create New Invoice" to get started.</p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

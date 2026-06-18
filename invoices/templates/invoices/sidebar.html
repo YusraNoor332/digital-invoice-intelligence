@@ -1,0 +1,82 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: var(--sidebar-dark-blue);">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link text-center" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <span class="brand-text font-weight-bold text-white" style="font-size: 1.25rem;">
+            <i class="bi bi-tools mr-2" style="color: var(--electric-cyan);"></i>HaierPortal
+        </span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-4">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                {% if user.is_superuser and not 'technician/' in request.path %}
+                <li class="nav-item mb-2">
+                    <a href="{% url 'custom_admin_dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_dashboard' %}active{% endif %}">
+                        <i class="nav-icon bi bi-speedometer2"></i>
+                        <p>Admin Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-header" style="color: var(--electric-cyan); font-size: 0.8rem; font-weight: bold;">DATABASE MANAGEMENT</li>
+                <li class="nav-item">
+                    <a href="{% url 'custom_admin_invoice_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_invoice_list' %}active{% endif %}">
+                        <i class="nav-icon bi bi-receipt"></i>
+                        <p>Invoices</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'custom_admin_feedback_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_feedback_list' %}active{% endif %}">
+                        <i class="nav-icon bi bi-chat-left-text"></i>
+                        <p>Customer Feedbacks</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'custom_admin_inventory_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_inventory_list' %}active{% endif %}">
+                        <i class="nav-icon bi bi-box-seam"></i>
+                        <p>Product Inventories</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'custom_admin_service_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_service_list' %}active{% endif %}">
+                        <i class="nav-icon bi bi-tools"></i>
+                        <p>Service Types</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'custom_admin_technician_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_technician_list' %}active{% endif %}">
+                        <i class="nav-icon bi bi-people"></i>
+                        <p>Technician Profiles</p>
+                    </a>
+                </li>
+                <li class="nav-header" style="color: var(--electric-cyan); font-size: 0.8rem; font-weight: bold;">DATA IMPORTS</li>
+                <li class="nav-item">
+                    <a href="{% url 'admin_upload_inventory_excel' %}" class="nav-link {% if request.resolver_match.url_name == 'admin_upload_inventory_excel' %}active{% endif %}">
+                        <i class="nav-icon bi bi-cloud-arrow-up"></i>
+                        <p>Upload Inventories</p>
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="{% url 'admin_upload_services_excel' %}" class="nav-link {% if request.resolver_match.url_name == 'admin_upload_services_excel' %}active{% endif %}">
+                        <i class="nav-icon bi bi-cloud-arrow-up"></i>
+                        <p>Upload Services</p>
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item mb-2">
+                    <a href="{% url 'technician_dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'technician_dashboard' %}active{% endif %}">
+                        <i class="nav-icon bi bi-speedometer2"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="{% url 'technician_invoice_create' %}" class="nav-link {% if request.resolver_match.url_name == 'technician_invoice_create' %}active{% endif %}">
+                        <i class="nav-icon bi bi-receipt"></i>
+                        <p>Create Invoice</p>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</aside>

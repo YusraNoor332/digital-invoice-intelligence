@@ -1,0 +1,73 @@
+{% extends 'invoices/base.html' %}
+{% load static %}
+
+{% block title %}Invoice Master List{% endblock %}
+{% block page_title %}Invoice Master List{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card fusion-card">
+            <div class="card-header bg-transparent border-0 pb-0 d-flex justify-content-between align-items-center">
+                <h3 class="card-title font-weight-bold" style="color: var(--sidebar-dark-blue);">
+                    <i class="bi bi-receipt mr-2" style="color: var(--haier-smart-blue);"></i> All Invoices
+                </h3>
+            </div>
+            <div class="card-body mt-3">
+                <div class="table-responsive">
+                    <table class="table table-hover table-borderless align-middle">
+                        <thead class="bg-light text-muted">
+                            <tr>
+                                <th class="rounded-left py-3">Invoice ID</th>
+                                <th class="py-3">Technician</th>
+                                <th class="py-3">Customer</th>
+                                <th class="py-3">Date Issued</th>
+                                <th class="py-3">Amount (PKR)</th>
+                                <th class="py-3">Status</th>
+                                <th class="rounded-right py-3 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invoice in invoices %}
+                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                <td class="py-3 font-weight-bold" style="color: var(--haier-smart-blue);">
+                                    {{ invoice.id|stringformat:"s"|slice:":8" }}...
+                                </td>
+                                <td class="py-3">
+                                    <div class="font-weight-bold text-dark">{{ invoice.technician.user.get_full_name|default:invoice.technician.user.username }}</div>
+                                </td>
+                                <td class="py-3">
+                                    <div class="font-weight-bold text-dark">{{ invoice.customer_name }}</div>
+                                    <small class="text-muted">{{ invoice.customer_phone }}</small>
+                                </td>
+                                <td class="py-3 text-muted">{{ invoice.created_at|date:"M d, Y" }}</td>
+                                <td class="py-3 font-weight-bold">Rs. {{ invoice.grand_total }}</td>
+                                <td class="py-3">
+                                    {% if invoice.otp_verified %}
+                                    <span class="badge badge-paid px-3 py-2 rounded-pill">Verified</span>
+                                    {% else %}
+                                    <span class="badge badge-pending px-3 py-2 rounded-pill">Pending OTP</span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-3 text-right">
+                                    <a href="{% url 'invoice_detail_view' invoice.id %}" class="btn btn-sm btn-outline-primary rounded-pill px-3 font-weight-bold">
+                                        View Details
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center py-5 text-muted">
+                                    <i class="bi bi-inboxes display-4 d-block mb-3 opacity-50"></i>
+                                    <h5>No invoices found.</h5>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

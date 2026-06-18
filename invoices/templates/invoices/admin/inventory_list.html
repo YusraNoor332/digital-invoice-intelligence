@@ -1,0 +1,52 @@
+{% extends 'invoices/base.html' %}
+{% load static %}
+
+{% block title %}Product Inventories{% endblock %}
+{% block page_title %}Product Inventories{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card fusion-card">
+            <div class="card-header bg-transparent border-0 pb-0 d-flex justify-content-between align-items-center">
+                <h3 class="card-title font-weight-bold" style="color: var(--sidebar-dark-blue);">
+                    <i class="bi bi-box-seam mr-2" style="color: var(--haier-smart-blue);"></i> All Inventories
+                </h3>
+            </div>
+            <div class="card-body mt-3">
+                <div class="table-responsive">
+                    <table class="table table-hover table-borderless align-middle">
+                        <thead class="bg-light text-muted">
+                            <tr>
+                                <th class="rounded-left py-3">Part Code</th>
+                                <th class="py-3">Part Name</th>
+                                <th class="py-3">Category</th>
+                                <th class="py-3">Model Number</th>
+                                <th class="rounded-right py-3 text-right">Price (PKR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for inventory in inventories %}
+                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                <td class="py-3 font-weight-bold" style="color: var(--haier-smart-blue);">{{ inventory.part_code }}</td>
+                                <td class="py-3 font-weight-bold text-dark">{{ inventory.part_name }}</td>
+                                <td class="py-3 text-muted">{{ inventory.category }}</td>
+                                <td class="py-3 text-muted">{{ inventory.model_number }}</td>
+                                <td class="py-3 text-right font-weight-bold">Rs. {{ inventory.price_pkr }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    <i class="bi bi-box-seam display-4 d-block mb-3 opacity-50"></i>
+                                    <h5>No product inventories found.</h5>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
