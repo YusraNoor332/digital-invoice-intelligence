@@ -2,7 +2,9 @@
 
 {% block content %}
 <div class="card shadow-sm mx-auto" style="max-width: 500px;">
-    <div class="card-header bg-dark text-white fw-bold">Admin Inventory Upload</div>
+    <div class="card-header text-white fw-bold" style="background-color: var(--sidebar-dark-blue);">
+        {{ title|default:"Admin Upload" }}
+    </div>
     <div class="card-body">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}

@@ -1,12 +1,131 @@
-{% extends "admin/index.html" %}
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
 
-{% block sidebar %}
-    {{ block.super }}
-    <div class="app-custom-links module" style="margin-top: 20px;">
-        <h2>Custom Upload Tools</h2>
-        <ul>
-            <li><a href="{% url 'admin_upload_inventory_excel' %}">Upload Inventory (Excel)</a></li>
-            <li><a href="{% url 'admin_upload_services_excel' %}">Upload Services (Excel)</a></li>
-        </ul>
+{% block extrastyle %}{{ block.super }}{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main" class="row">
+    <!-- Main App List -->
+    <div class="col-md-8 col-12">
+        {% if app_list %}
+            {% for app in app_list %}
+            <div class="card fusion-card mb-4">
+                <div class="card-header bg-transparent border-0 pb-0 d-flex justify-content-between align-items-center">
+                    <h3 class="card-title font-weight-bold" style="color: var(--sidebar-dark-blue);">
+                        <a href="{{ app.app_url }}" class="section" title="{% blocktranslate with name=app.name %}Models in the {{ name }} application{% endblocktranslate %}">
+                            <i class="bi bi-folder2-open mr-2" style="color: var(--haier-smart-blue);"></i>
+                            {{ app.name }}
+                        </a>
+                    </h3>
+                </div>
+                <div class="card-body mt-3 p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-borderless align-middle mb-0">
+                            <tbody>
+                            {% for model in app.models %}
+                                <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                    <td class="py-3 px-4 font-weight-bold">
+                                        {% if model.admin_url %}
+                                            <a href="{{ model.admin_url }}" style="color: var(--sidebar-dark-blue); font-size: 1.1rem;">{{ model.name }}</a>
+                                        {% else %}
+                                            <span style="color: var(--sidebar-dark-blue); font-size: 1.1rem;">{{ model.name }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-3 px-4 text-right">
+                                        {% if model.add_url %}
+                                            <a href="{{ model.add_url }}" class="btn btn-sm btn-outline-success rounded-pill px-3 mr-2 font-weight-bold">
+                                                <i class="bi bi-plus-lg"></i> Add
+                                            </a>
+                                        {% endif %}
+                                        {% if model.admin_url %}
+                                            <a href="{{ model.admin_url }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 font-weight-bold">
+                                                <i class="bi bi-pencil-square"></i> Change
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>{% translate "You don't have permission to view or edit anything." %}</p>
+        {% endif %}
     </div>
+
+    <!-- Recent Actions & Custom Uploads Sidebar -->
+    <div class="col-md-4 col-12">
+        <!-- Custom Upload Tools -->
+        <div class="card fusion-card mb-4">
+            <div class="card-header bg-transparent border-0 pb-0">
+                <h3 class="card-title font-weight-bold" style="color: var(--sidebar-dark-blue);">
+                    <i class="bi bi-cloud-arrow-up mr-2" style="color: var(--haier-smart-blue);"></i> Custom Upload Tools
+                </h3>
+            </div>
+            <div class="card-body mt-3">
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-3">
+                        <a href="{% url 'admin_upload_inventory_excel' %}" class="btn btn-block btn-primary rounded-pill font-weight-bold" style="background: linear-gradient(135deg, #00C6FF, #0072ff); border: none;">
+                            <i class="bi bi-file-earmark-excel mr-2"></i> Upload Inventory
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_upload_services_excel' %}" class="btn btn-block btn-primary rounded-pill font-weight-bold" style="background: linear-gradient(135deg, #00C6FF, #0072ff); border: none;">
+                            <i class="bi bi-file-earmark-excel mr-2"></i> Upload Services
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Recent Actions -->
+        <div class="card fusion-card" id="recent-actions-module">
+            <div class="card-header bg-transparent border-0 pb-0">
+                <h3 class="card-title font-weight-bold" style="color: var(--sidebar-dark-blue);">
+                    <i class="bi bi-clock-history mr-2" style="color: var(--haier-smart-blue);"></i> {% translate 'Recent actions' %}
+                </h3>
+            </div>
+            <div class="card-body mt-3">
+                {% load log %}
+                {% get_admin_log 10 as admin_log for_user user %}
+                {% if not admin_log %}
+                <p class="text-muted text-center py-4"><i class="bi bi-inboxes display-4 opacity-50 d-block mb-3"></i>{% translate 'None available' %}</p>
+                {% else %}
+                <ul class="list-unstyled actionlist mb-0">
+                {% for entry in admin_log %}
+                <li class="mb-3 pb-3 border-bottom {% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                    {% if entry.is_deletion or not entry.get_admin_url %}
+                        <span class="font-weight-bold text-dark">{{ entry.object_repr }}</span>
+                    {% else %}
+                        <a href="{{ entry.get_admin_url }}" class="font-weight-bold" style="color: var(--haier-smart-blue);">{{ entry.object_repr }}</a>
+                    {% endif %}
+                    <br>
+                    <small class="text-muted">
+                        {% if entry.content_type %}
+                            <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                        {% else %}
+                            <span class="mini quiet">{% translate 'Unknown content' %}</span>
+                        {% endif %}
+                        &bull;
+                        {% if entry.is_addition %}<span class="text-success"><i class="bi bi-plus-circle"></i> Added</span>{% endif %}
+                        {% if entry.is_change %}<span class="text-primary"><i class="bi bi-pencil"></i> Changed</span>{% endif %}
+                        {% if entry.is_deletion %}<span class="text-danger"><i class="bi bi-trash"></i> Deleted</span>{% endif %}
+                    </small>
+                </li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,64 +1,66 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: var(--sidebar-dark-blue);">
-    <!-- Brand Logo -->
-    <a href="#" class="brand-link text-center" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-        <span class="brand-text font-weight-bold text-white" style="font-size: 1.25rem;">
-            <i class="bi bi-tools mr-2" style="color: var(--electric-cyan);"></i>HaierPortal
-        </span>
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="#" class="brand-link d-flex align-items-center justify-content-center py-3">
+        <i class="bi bi-cpu mr-2 text-info fs-4"></i>
+        <span class="brand-text font-weight-bold text-white"><span style="color: var(--electric-cyan);">Haier</span>Portal</span>
     </a>
-
-    <!-- Sidebar -->
+    
     <div class="sidebar">
-        <!-- Sidebar Menu -->
-        <nav class="mt-4">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                
                 {% if user.is_superuser and not 'technician/' in request.path %}
-                <li class="nav-item mb-2">
+                <li class="nav-item">
                     <a href="{% url 'custom_admin_dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_dashboard' %}active{% endif %}">
-                        <i class="nav-icon bi bi-speedometer2"></i>
+                        <i class="nav-icon bi bi-speedometer2 mr-2"></i>
                         <p>Admin Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-header" style="color: var(--electric-cyan); font-size: 0.8rem; font-weight: bold;">DATABASE MANAGEMENT</li>
+
+                <li class="nav-header text-uppercase font-weight-bold text-muted small tracking-wider mt-3 mb-1">Database Management</li>
+                
                 <li class="nav-item">
-                    <a href="{% url 'custom_admin_invoice_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_invoice_list' %}active{% endif %}">
-                        <i class="nav-icon bi bi-receipt"></i>
+                    <a href="/admin/invoices/invoice/" class="nav-link {% if '/invoice/' in request.path %}active{% endif %}">
+                        <i class="nav-icon bi bi-receipt mr-2"></i>
                         <p>Invoices</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'custom_admin_feedback_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_feedback_list' %}active{% endif %}">
-                        <i class="nav-icon bi bi-chat-left-text"></i>
+                    <a href="/admin/invoices/customerfeedback/" class="nav-link {% if '/customerfeedback/' in request.path %}active{% endif %}">
+                        <i class="nav-icon bi bi-chat-square-text mr-2"></i>
                         <p>Customer Feedbacks</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'custom_admin_inventory_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_inventory_list' %}active{% endif %}">
-                        <i class="nav-icon bi bi-box-seam"></i>
+                    <a href="/admin/invoices/productinventory/" class="nav-link {% if '/productinventory/' in request.path %}active{% endif %}">
+                        <i class="nav-icon bi bi-box-seam mr-2"></i>
                         <p>Product Inventories</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'custom_admin_service_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_service_list' %}active{% endif %}">
-                        <i class="nav-icon bi bi-tools"></i>
+                    <a href="/admin/invoices/servicetype/" class="nav-link {% if '/servicetype/' in request.path %}active{% endif %}">
+                        <i class="nav-icon bi bi-wrench mr-2"></i>
                         <p>Service Types</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'custom_admin_technician_list' %}" class="nav-link {% if request.resolver_match.url_name == 'custom_admin_technician_list' %}active{% endif %}">
-                        <i class="nav-icon bi bi-people"></i>
+                    <a href="/admin/invoices/technicianprofile/" class="nav-link {% if '/technicianprofile/' in request.path %}active{% endif %}">
+                        <i class="nav-icon bi bi-people mr-2"></i>
                         <p>Technician Profiles</p>
                     </a>
                 </li>
-                <li class="nav-header" style="color: var(--electric-cyan); font-size: 0.8rem; font-weight: bold;">DATA IMPORTS</li>
+
+                <li class="nav-header text-uppercase font-weight-bold text-muted small tracking-wider mt-3 mb-1">Data Imports</li>
+                
                 <li class="nav-item">
                     <a href="{% url 'admin_upload_inventory_excel' %}" class="nav-link {% if request.resolver_match.url_name == 'admin_upload_inventory_excel' %}active{% endif %}">
-                        <i class="nav-icon bi bi-cloud-arrow-up"></i>
+                        <i class="nav-icon bi bi-cloud-arrow-up mr-2"></i>
                         <p>Upload Inventories</p>
                     </a>
                 </li>
                 <li class="nav-item mb-2">
                     <a href="{% url 'admin_upload_services_excel' %}" class="nav-link {% if request.resolver_match.url_name == 'admin_upload_services_excel' %}active{% endif %}">
-                        <i class="nav-icon bi bi-cloud-arrow-up"></i>
+                        <i class="nav-icon bi bi-cloud-arrow-up mr-2"></i>
                         <p>Upload Services</p>
                     </a>
                 </li>

@@ -336,3 +336,318 @@ body {
     border-radius: 6px;
     font-weight: bold;
 }
+/* Restructure the internal workspace font engine */
+#content.block {
+    font-family: 'Inter', sans-serif !important;
+    color: #2D3748 !important;
+}
+
+/* Fix massive native titles and adjust headers */
+#content h1, .changelist h1 {
+    font-size: 1.65rem !important;
+    font-weight: 700 !important;
+    color: #0A192F !important;
+    margin-bottom: 1.5rem !important;
+    letter-spacing: -0.02em;
+}
+
+/* Hide or restyle broken generic header labels */
+.changelist h1 + font, 
+#content h1 + font {
+    display: none !important;
+}
+
+/* Style Django's native search bar container */
+#searchbar {
+    width: 100% !important;
+    max-width: 400px !important;
+    padding: 0.6rem 1rem !important;
+    font-size: 0.9rem !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    transition: all 0.2s ease;
+}
+
+#searchbar:focus {
+    outline: none !important;
+    border-color: #0057D9 !important;
+    box-shadow: 0 0 0 3px rgba(0, 87, 217, 0.15) !important;
+}
+
+/* Modernize the generic search button */
+#searchform input[type="submit"] {
+    background-color: #0057D9 !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 0.6rem 1.2rem !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    cursor: pointer !important;
+    transition: background 0.2s ease;
+}
+
+#searchform input[type="submit"]:hover {
+    background-color: #0043A8 !important;
+}
+
+/* Clean up action selection dropdown wrappers */
+.actions {
+    background: #F8FAFC !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 10px !important;
+    border: 1px solid #EDF2F7 !important;
+    margin-bottom: 1.25rem !important;
+    font-size: 0.85rem !important;
+}
+
+.actions select {
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 6px !important;
+    border: 1px solid #CBD5E1 !important;
+}
+
+/* Re-engineer Django's native results table element */
+#changelist .results, #result_list {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 4px !important;
+    margin-top: 1rem !important;
+}
+
+/* Style individual row headers */
+#result_list th {
+    background-color: #F8FAFC !important;
+    color: #4A5568 !important;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 12px 16px !important;
+    border-bottom: 2px solid #E2E8F0 !important;
+}
+
+/* Smooth row layouts and add a premium lift hover animation */
+#result_list tbody tr {
+    transition: all 0.2s ease-in-out !important;
+    background-color: #ffffff !important;
+}
+
+#result_list tbody tr:hover {
+    background-color: #F0F7FF !important;
+    transform: scale(1.002);
+    box-shadow: 0 4px 12px rgba(0, 87, 217, 0.04) !important;
+}
+
+#result_list td, #result_list th.field-get_id_display {
+    padding: 14px 16px !important;
+    font-size: 0.9rem !important;
+    color: #4A5568 !important;
+    border-bottom: 1px solid #EDF2F7 !important;
+    vertical-align: middle !important;
+}
+
+/* Reposition the generic block container wrapper */
+.pagination {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-top: 2rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid #E2E8F0 !important;
+    font-size: 0.85rem !important;
+    color: #718096 !important;
+}
+
+/* Modernize page index number navigation arrays */
+.pagination a, .pagination .this-page {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 32px !important;
+    height: 32px !important;
+    margin: 0 3px !important;
+    padding: 0 6px !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+}
+
+/* Interactive hover color changing adjustments */
+.pagination a {
+    background-color: #F1F5F9 !important;
+    color: #0057D9 !important;
+}
+
+.pagination a:hover {
+    background-color: #0057D9 !important;
+    color: #ffffff !important;
+}
+
+/* Lock highlight onto the active current index page item */
+.pagination .this-page {
+    background: linear-gradient(135deg, #0057D9 0%, #00C6FF 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px rgba(0, 87, 217, 0.2) !important;
+}
+/* ==========================================================================
+   1. ELIMINATING THE RAW PAGINATION HEADER TEXT
+   ========================================================================== */
+
+/* Safely hides the hardcoded "Pagination [Model]" raw text across all modules */
+#content h2, 
+.changelist h2,
+#content blockquote,
+.results + h2 {
+    display: none !important;
+}
+
+/* Ensure the real numbers display neatly beneath the data grid */
+.pagination {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    font-size: 0.85rem !important;
+    color: #64748B !important;
+    font-weight: 500 !important;
+    margin-top: 1.5rem !important;
+}
+
+
+/* ==========================================================================
+   2. RE-ENGINEERING SIDEBAR UPLOAD MODULE BUTTONS ("DATA IMPORTS")
+   ========================================================================== */
+
+/* Target the header label context element inside the navigation stack */
+.nav-sidebar .nav-header {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: #94A3B8 !important;
+    padding: 1.5rem 1rem 0.5rem 1rem !important;
+}
+
+/* Refactor the upload buttons into modern frosted-glass interactive cards */
+.nav-sidebar a[href*="upload"] {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 10px !important;
+    margin: 0.35rem 0.8rem !important;
+    padding: 0.65rem 1rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Color changing hovering effect with glass shimmer and scale lift */
+.nav-sidebar a[href*="upload"]:hover {
+    background: rgba(0, 198, 255, 0.12) !important;
+    border-color: rgba(0, 198, 255, 0.4) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 198, 255, 0.15) !important;
+}
+
+/* Style the icon vector states specifically */
+.nav-sidebar a[href*="upload"] i, 
+.nav-sidebar a[href*="upload"] svg {
+    color: #38BDF8 !important;
+    font-size: 1.05rem !important;
+    transition: transform 0.3s ease !important;
+}
+
+/* Give the upload icon a subtle bounce pulse on hover engagement */
+.nav-sidebar a[href*="upload"]:hover i,
+.nav-sidebar a[href*="upload"]:hover svg {
+    transform: translateY(-1px) scale(1.1);
+}
+
+/* Clean up label arrangements inside the custom upload tabs */
+.nav-sidebar a[href*="upload"] p {
+    font-size: 0.88rem !important;
+    font-weight: 500 !important;
+    color: #E2E8F0 !important;
+    letter-spacing: 0.01em !important;
+}
+/* Strip native Django listing tags and create a clean horizontal button container */
+ul.object-tools {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    padding-left: 0 !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+    list-style: none !important;
+}
+
+/* Ensure individual item containers do not enforce bullet prefixes */
+ul.object-tools li {
+    list-style-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Base anchor button layout configuration rules */
+ul.object-tools a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.55rem 1.15rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    letter-spacing: 0.01em !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+}
+
+/* Style Type A: Add Profile / Add Invoice / Add Inventory (Primary Action) */
+ul.object-tools a[class*="addlink"],
+ul.object-tools a[href*="/add/"] {
+    background: #0057D9 !important;
+    color: #ffffff !important;
+    border: 1px solid #0057D9 !important;
+    box-shadow: 0 2px 6px rgba(0, 87, 217, 0.15) !important;
+}
+
+/* Add Button Hover Interaction Details */
+ul.object-tools a[class*="addlink"]:hover,
+ul.object-tools a[href*="/add/"]:hover {
+    background: #0043A8 !important;
+    border-color: #0043A8 !important;
+    transform: translateY(-1.5px);
+    box-shadow: 0 4px 12px rgba(0, 87, 217, 0.25) !important;
+}
+
+/* Style Type B: Upload Parts Excel / Upload Services (Specialist Integration Tool) */
+ul.object-tools a[href*="upload"],
+ul.object-tools a[class*="upload"] {
+    background: rgba(16, 185, 129, 0.08) !important;
+    color: #10B981 !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Upload Button Hover Glassmorphism Shifts */
+ul.object-tools a[href*="upload"]:hover,
+ul.object-tools a[class*="upload"]:hover {
+    background: #10B981 !important;
+    color: #ffffff !important;
+    border-color: #10B981 !important;
+    transform: translateY(-1.5px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Fix search element positioning gaps */
+#changelist-search {
+    margin-top: 0.5rem !important;
+    margin-bottom: 1.25rem !important;
+}
+
+/* Smooth out padding parameters inside administrative actions */
+.actions select {
+    border: 1px solid #CBD5E1 !important;
+    color: #334155 !important;
+    background-color: #FFFFFF !important;
+}

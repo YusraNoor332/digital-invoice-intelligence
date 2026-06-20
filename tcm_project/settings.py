@@ -52,9 +52,28 @@ TEMPLATES = [
 WSGI_APPLICATION = 'tcm_project.wsgi.application'
 
 DATABASES = {
+    # -------------------------------------------------------------------------
+    # ACTIVE DATABASE (SQLite for Local Development & Mock Data)
+    # -------------------------------------------------------------------------
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
+    # -------------------------------------------------------------------------
+    # PRODUCTION DATABASE (MSSQL - Uncomment to activate)
+    # -------------------------------------------------------------------------
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mssql',
+        'NAME': 'HaierSandboxDB',                  # The database name you are creating in SSMS
+        'HOST': 'localhost\\SQLEXPRESS',           # Your exact local instance name
+        'PORT': '',                                # Leave blank for default port routing
+        'USER': '',                                # Clear this for Windows Auth
+        'PASSWORD': '',                            # Clear this for Windows Auth
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'extra_params': 'trusted_connection=yes;Encrypt=yes;TrustServerCertificate=yes;',
+        },
     }
 }
 
