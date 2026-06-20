@@ -5,6 +5,18 @@
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-4.6-purple.svg)
 
 A complete, dual-role electronic invoicing and service management system built with Django. Designed with a sleek, custom "Smart Blue Fusion" AdminLTE v3 interface, this portal streamlines field service operations by connecting technicians, administrators, and customers through automated workflows and OTP-verified invoicing.
+## 📈 Version Release History
+
+### 🚀 Version 2.0 — Enterprise Database Migration (Current)
+- **Backend Architecture Engine:** Migrated the local system runtime onto a dedicated Microsoft SQL Server instance (`HaierSandboxDB`).
+- **Data Integrity Constraints:** Implemented dynamic schemas covering transactional billing management, custom `TechnicianProfile` structures, and multi-tier `CustomerFeedback` validation rules (such as `behavior_rating`, `punctuality_rating`, and `resolution_quality`).
+- **Seeding Automation:** Embedded custom interactive Django shell initialization logic to safely pre-populate test layouts dynamically without violating database constraints.
+
+### 🔹 Version 1.0 — Baseline Architecture
+- Established the initial open Python middleware platform.
+- Integrated the core FastAPI scanner listener daemon and local file configuration.
+
+---
 
 ## ✨ Features
 
